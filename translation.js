@@ -16,7 +16,7 @@ function translator(lang, inputRequestJson) {
             let fileContents = fs.readFileSync(`translate-${lang}.yaml`, 'utf8');
             let ymldata = yaml.load(fileContents);
 
-            var translatedData = replace(users, ymldata)
+            var translatedData = translatorCoreEngine(users, ymldata)
 
             fs.writeFileSync(outputJson, JSON.stringify(translatedData));
         } catch (e) {
@@ -25,10 +25,10 @@ function translator(lang, inputRequestJson) {
     });
 }
 
-function replace(obj,ymldata){
+function translatorCoreEngine(obj,ymldata){
     for(let key in obj)
       if(typeof obj[key] == 'object'){
-        replace(obj[key],ymldata);
+        translatorCoreEngine(obj[key],ymldata);
       }
     else {
         Object.keys(ymldata).find(function(value){

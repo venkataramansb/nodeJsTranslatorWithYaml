@@ -17,6 +17,7 @@ function translator(lang, inputRequestJson) {
         let fileContents = fs.readFileSync(`translate-${lang}.yaml`, 'utf8');
         let ymldata = yaml.load(fileContents);
 
+       // typeof obj[key] == 'string'? obj[key] = obj[key].replace(/[^a-zA-Z0-9 ]/g, " ") : '';
         Object.keys(newdata).forEach(function (value) {
             Object.keys(ymldata).find(function (key) {
                 if (newdata.includes(key)) {
